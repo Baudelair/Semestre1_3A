@@ -1,0 +1,203 @@
+# name: Untitled
+
+type Personnel extends Personne {
+
+    idPersonne: String
+    nom: String
+    prénom: String
+    dateNaissance: String
+    adresse: String
+    dateRecrutement: String
+    publie: [Publication]
+    evenement: Evenement
+    participeJPO: [JPO]
+}
+
+type Scientifique extends Personnel {
+
+    idPersonne: String
+    nom: String
+    prénom: String
+    dateNaissance: String
+    adresse: String
+    dateRecrutement: String
+    publie: [Publication]
+    evenement: Evenement
+    participeJPO: [JPO]
+    personnel: Personnel
+    encadre: [Doctorant]
+    porte: Projet!
+    projets: [Projet!]
+    projet: Projet
+    participeProjet: [Projet]
+    préside: [Conférence]
+}
+
+# WARNING: you can only extend one class, ignoring others
+type Doctorant extends Personnel {
+
+    idPersonne: String
+    nom: String
+    prénom: String
+    dateNaissance: String
+    adresse: String
+    dateRecrutement: String
+    publie: [Publication]
+    evenement: Evenement
+    participeJPO: [JPO]
+    dateSoutenance: String
+    encadre: [Scientifique!]
+    personnel: Personnel
+}
+
+type ChercheurEnseignant extends Scientifique {
+
+    idPersonne: String
+    nom: String
+    prénom: String
+    dateNaissance: String
+    adresse: String
+    dateRecrutement: String
+    publie: [Publication]
+    evenement: Evenement
+    participeJPO: [JPO]
+    personnel: Personnel
+    encadre: [Doctorant]
+    porte: Projet!
+    projets: [Projet!]
+    projet: Projet
+    participeProjet: [Projet]
+    préside: [Conférence]
+    échelon: String
+    doctorant: Doctorant
+    scientifique: Scientifique
+    estAffilié: Etablissement!
+}
+
+type Chercheur extends Scientifique {
+
+    idPersonne: String
+    nom: String
+    prénom: String
+    dateNaissance: String
+    adresse: String
+    dateRecrutement: String
+    publie: [Publication]
+    evenement: Evenement
+    participeJPO: [JPO]
+    personnel: Personnel
+    encadre: [Doctorant]
+    porte: Projet!
+    projets: [Projet!]
+    projet: Projet
+    participeProjet: [Projet]
+    préside: [Conférence]
+    scientifique: Scientifique
+}
+
+type Etablissement {
+
+    idEtablissement: String
+    nom: String
+    acronyme: String
+    adresse: String
+    estAffilié: [ChercheurEnseignant]
+}
+
+type Projet {
+
+    idProjet: String
+    titre: String
+    acronyme: String
+    annéeDébut: String
+    durée: String
+    coûtGlobal: String
+    budgetLAAS: String
+    porte: [Scientifique]
+    scientifique: Scientifique
+    projet: Projet
+    participeProjet: [Scientifique!]
+    partenaireParticipe: [Partenaire!]
+}
+
+type Partenaire {
+
+    idPartenaire: String
+    nom: String
+    pays: String
+    partenaireParticipe: [Projet!]
+}
+
+type Evenement {
+
+    idEvenement: String
+    dateDébut: String
+    dateFin: String
+    personnel: Personnel
+}
+
+type JPO extends Evenement {
+
+    idEvenement: String
+    dateDébut: String
+    dateFin: String
+    personnel: Personnel
+    evenement: Evenement
+    participeJPO: [Personnel!]
+}
+
+type Conférence extends Evenement {
+
+    idEvenement: String
+    dateDébut: String
+    dateFin: String
+    personnel: Personnel
+    nbInscrit: String
+    evenement: Evenement
+    préside: Scientifique!
+}
+
+type Publication {
+
+    idPublication: String
+    titre: String
+    annéePublication: String
+    nomConf_journal: String
+    classeConf: String
+    nbPages: String
+    publie: [Personnel!]
+    collabore: [Auteur]
+}
+
+type Auteur extends Personne {
+
+    idPersonne: String
+    nom: String
+    prénom: String
+    collabore: [Publication]
+    travaille: [LaboExt]
+}
+
+type LaboExt {
+
+    idLabo: String
+    nom: String
+    pays: String
+    travaille: Auteur!
+}
+
+type Personne {
+
+}
+
+type Personne {
+
+    Attribute1: String
+}
+
+type Personne {
+
+    idPersonne: String
+    nom: String
+    prénom: String
+}
